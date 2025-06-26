@@ -3,14 +3,17 @@ const cors = require("cors");
 
 const app = express();
 
-// Middleware untuk handle error
+// Middleware
+app.use(
+  cors({
+    origin: ["https://my-frontend-vert.vercel.app", "http://localhost:3000"], // Hapus slash di akhir
+  })
+);
+app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   next();
 });
-
-app.use(cors());
-app.use(express.json());
 
 // Root route
 app.get("/", (req, res) => {
@@ -34,12 +37,12 @@ app.post("/api/greet", (req, res) => {
   }
 });
 
-// Handle 404
+// Handle 404 (hanya satu handler)
 app.use((req, res) => {
   res.status(404).json({ error: "Endpoint not found" });
 });
 
-// Error handler
+// Error handler (pindahkan ke paling bawah)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something broke!" });
