@@ -6,7 +6,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ["https://my-frontend-vert.vercel.app", "http://localhost:3000"], // Hapus slash di akhir
+    origin: ["https://my-frontend-taupe.vercel.app", "http://localhost:3000"], // Hapus slash di akhir
   })
 );
 app.use(express.json());
